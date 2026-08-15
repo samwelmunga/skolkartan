@@ -51,3 +51,24 @@ and this entry does not invent one.
 
 **Revisit if:** the agent harness stops being used on this repository. At that point the package
 genuinely becomes dead weight and the reason for keeping it disappears with the harness.
+
+## 2026-08-15 — the `@/*` alias is declared by `paths` alone, without `baseUrl`
+
+**Epic/Story:** E00_S01
+
+**Decision:** `tsconfig.json` declares the `@/*` alias through `paths` only. `baseUrl` is not set,
+and must not be added. With no `baseUrl` present, `paths` anchors to the directory containing
+`tsconfig.json`, which is the repository root, so `"@/*": ["./src/*"]` resolves as intended.
+
+**Reason:** TypeScript 7 removed `baseUrl`. Setting it is not a deprecation warning but the hard
+error `TS5102`, which fails `npm run typecheck` and `npm run build` outright. Nearly every
+Next.js and TypeScript path-alias example still in circulation pairs `paths` with `baseUrl`, so
+the natural instinct on seeing this config is that a line is missing. It is not. The alias was
+verified to resolve under both `tsc` and Turbopack, and independently re-verified from a clean
+clone, where a deliberate probe produced a type error rather than a module-not-found error —
+proving resolution succeeded.
+
+**Revisit if:** a future TypeScript release reintroduces `baseUrl`, or the project moves
+`tsconfig.json` out of the repository root. The second case matters more: because `paths` is now
+anchored to the config file's own directory, moving that file silently changes what `@/*` points
+at, with no error to warn about it.

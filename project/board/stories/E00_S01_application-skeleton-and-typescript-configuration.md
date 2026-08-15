@@ -1,11 +1,11 @@
 ---
 id: E00_S01
 title: Application skeleton and TypeScript configuration
-status: Pending
+status: Passed
 epic_id: E00
 date_created: 2026-08-15
-date_started: null
-date_completed: null
+date_started: 2026-08-15
+date_completed: 2026-08-15
 tasks:
   - E00_S01_T01
   - E00_S01_T02
@@ -19,7 +19,7 @@ depends_on: []
 
 **ID**: E00_S01
 **Epic**: E00 — Project Foundation
-**Status**: Pending
+**Status**: Passed
 **Date Added**: 2026-08-15
 **Wave**: 1 — blocking. S02–S05 cannot start until this is done, and no story in any later Epic
 can start either. This is the first real code in the repository.
