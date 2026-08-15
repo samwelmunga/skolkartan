@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@jenga-ai/agent": "^1.0.1"
+  }
+}
