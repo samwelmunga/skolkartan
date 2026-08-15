@@ -1,12 +1,12 @@
 ---
 id: E00_S01_T04
 title: Record the toolchain decisions in docs/decisions.md
-status: Pending
+status: Passed
 story_id: E00_S01
 epic_id: E00
 date_created: 2026-08-15
-date_started: null
-date_completed: null
+date_started: 2026-08-15
+date_completed: 2026-08-15
 depends_on: []
 docs: ["docs/decisions.md"]
 ---

@@ -6,10 +6,18 @@ Desktop.ini
 # Environment files
 .env
 .env.*
+.env*.local
 *.local
 
 # Dependency directories
 node_modules/
 vendor/
 .venv/
-EOF
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts.timestamp
+
+# TypeScript incremental build info
+*.tsbuildinfo
