@@ -1,1 +1,98 @@
-[]
+[
+  {
+    "event": "session_start",
+    "agent": "scrum-master",
+    "session_id": "",
+    "date": "2026-08-15T00:00:00Z"
+  },
+  {
+    "event": "session_start",
+    "agent": "developer",
+    "session_id": "",
+    "date": "2026-08-15T00:00:00Z"
+  },
+  {
+    "sender": {
+      "agent": "developer",
+      "session_id": "",
+      "task_id": "E00_S01_T04",
+      "story_id": "E00_S01",
+      "epic_id": "E00",
+      "date": "2026-08-15T00:00:00Z",
+      "paths": [],
+      "worktree": "/Users/samwelmunga/Desktop/Projects/skolkartan"
+    }
+  },
+  {
+    "event": "session_start",
+    "agent": "developer",
+    "session_id": "E00_S01_T01",
+    "date": "2026-08-15T00:00:00Z"
+  },
+  {
+    "sender": {
+      "agent": "developer",
+      "session_id": "E00_S01_T01",
+      "task_id": "E00_S01_T01",
+      "story_id": "E00_S01",
+      "epic_id": "E00",
+      "date": "2026-08-15T00:00:00Z",
+      "paths": [],
+      "worktree": "/Users/samwelmunga/Desktop/Projects/skolkartan"
+    }
+  },
+  {
+    "event": "session_start",
+    "agent": "developer",
+    "session_id": "E00_S01_T02",
+    "date": "2026-08-15T00:00:00Z"
+  },
+  {
+    "sender": {
+      "agent": "developer",
+      "session_id": "E00_S01_T02",
+      "task_id": "E00_S01_T02",
+      "story_id": "E00_S01",
+      "epic_id": "E00",
+      "date": "2026-08-15T00:00:00Z",
+      "paths": [],
+      "worktree": "/Users/samwelmunga/Desktop/Projects/skolkartan"
+    }
+  },
+  {
+    "event": "session_start",
+    "agent": "developer",
+    "session_id": "E00_S01_T05",
+    "date": "2026-08-15T00:00:00Z"
+  },
+  {
+    "sender": {
+      "agent": "developer",
+      "session_id": "E00_S01_T05",
+      "task_id": "E00_S01_T05",
+      "story_id": "E00_S01",
+      "epic_id": "E00",
+      "date": "2026-08-15T00:00:00Z",
+      "paths": [],
+      "worktree": "/Users/samwelmunga/Desktop/Projects/skolkartan"
+    }
+  },
+  {
+    "event": "session_start",
+    "agent": "developer",
+    "session_id": "E00_S02_T01",
+    "date": "2026-08-16T00:00:00Z"
+  },
+  {
+    "sender": {
+      "agent": "developer",
+      "session_id": "E00_S02_T01",
+      "task_id": "E00_S02_T01",
+      "story_id": "E00_S02",
+      "epic_id": "E00",
+      "date": "2026-08-16T00:00:00Z",
+      "paths": [],
+      "worktree": "/Users/samwelmunga/Desktop/Projects/skolkartan"
+    }
+  }
+]

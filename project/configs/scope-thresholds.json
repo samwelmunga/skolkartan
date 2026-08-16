@@ -1,0 +1,14 @@
+{
+  "inline_max_files": 5,
+  "inline_max_lines": 150,
+  "story_max_files": 20,
+  "bundle_lock_ttl_minutes": 120,
+
+  "_rationale": {
+    "basis": "Measured from E00's task commits, counting authored files only and excluding package-lock.json and project/ board Markdown. Observed range per task: 1-7 files, 21-150 lines.",
+    "inline_max_files": "5. Every E00 task except the tsconfig/App-Router one stayed at or under this. Past roughly five files a change stops being a single edit and starts being something worth isolating so it can be reviewed and reverted as a unit.",
+    "inline_max_lines": "150. The largest single authored task in E00 was 86 lines; 150 leaves headroom without admitting work too big to hold in one sitting.",
+    "story_max_files": "20. A whole story's tasks bundled together. E00's largest story touches roughly 10-15 files, so this allows a genuine bundle while still catching one that has run away.",
+    "bundle_lock_ttl_minutes": "120. This is stale-lock recovery, not a work timeout. Long enough that a legitimately slow multi-task bundle is never evicted mid-run, short enough that a crashed agent frees the story within a working session."
+  }
+}
