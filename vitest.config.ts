@@ -19,7 +19,7 @@ export default defineConfig({
 
     // Tests are colocated with the code they test, as `<name>.test.ts` beside `<name>.ts`. One
     // convention, and no parallel __tests__ tree to keep in sync.
-    include: ['src/**/*.test.ts'],
+    include: ['src/**/*.test.ts', 'scripts/**/*.test.ts'],
 
     // Globals are deliberately off: `describe`, `it` and `expect` are imported explicitly in every
     // test file. Enabling them would require adding "vitest/globals" to compilerOptions.types in

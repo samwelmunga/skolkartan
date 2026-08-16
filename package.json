@@ -12,7 +12,8 @@
     "lint": "eslint . --max-warnings=0",
     "lint:fix": "eslint . --fix",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "ci": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/ci/run-checks.ts"
   },
   "engines": {
     "node": ">=24.18.0"
