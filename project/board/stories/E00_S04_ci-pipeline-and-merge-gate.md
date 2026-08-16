@@ -9,13 +9,6 @@ date_completed: null
 tasks:
   - E00_S04_T01
   - E00_S04_T02
-  - E00_S04_T03
-  - E00_S04_T04
-  - E00_S04_T05
-  - E00_S04_T06
-  - E00_S04_T07
-  - E00_S04_T08
-  - E00_S04_T09
 depends_on:
   - E00_S03
 docs: ["docs/ci-checks.md"]

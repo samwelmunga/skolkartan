@@ -1,93 +1,104 @@
-# Instructions for you — E00_S04_T02: Create the GitHub remote and enable Actions
+# Instructions for you — E00_S04_T02: Turn on the merge gate
 
-This task needs three things only you can do. The agent has stopped and is waiting.
+This needs you to change a GitHub repository setting. The agent has stopped and is waiting.
 
-**Why the agent cannot do this:** creating the repository means choosing its name, its owner and
-whether it is public or private. Those are your decisions, not the agent's.
+**Why the agent cannot do this:** branch protection changes how your repository behaves for
+everyone, including you. Some of the options below decide whether you can override the gate on your
+own project. That is your call.
 
-**Current state, verified:** this project is a local git repository on branch `main` with **no
-remote configured at all**. The `gh` CLI is installed and you are already logged in as
-`samwelmunga`, with token scopes `repo` and `workflow` — enough for everything below.
+**Prerequisite already met:** `E00_S04_T01` pushed the workflow and it has reported a check named
+**`checks`** on `main`. That is why this comes now — GitHub only offers a check in the picker after
+it has seen it report at least once.
 
----
-
-## Step 1 — Create the GitHub repository and add it as a remote
-
-Pick **one** of the two routes.
-
-### Route A — command line (fastest)
-
-From the project directory:
-
-```
-gh repo create skolkartan --private --source=. --remote=origin
-```
-
-- Change `skolkartan` if you want a different name.
-- Swap `--private` for `--public` if you want it public. For a personal research tool, private is
-  the sensible default, and it is the one assumed elsewhere in this Epic.
-- To put it under an organisation instead of your personal account, use `ORGNAME/skolkartan` as the
-  name.
-
-This creates the repository and wires it up as `origin` in one step. It does **not** push yet —
-that is intentional, the agent handles the first push in a later task.
-
-### Route B — web interface
-
-1. Go to https://github.com/new
-2. Enter the repository name (`skolkartan` unless you prefer otherwise).
-3. Choose Private or Public.
-4. **Do not** tick "Add a README", "Add .gitignore" or "Choose a license". The repository already
-   has content and an initialised remote will cause a conflict on the first push.
-5. Click **Create repository**.
-6. Back in the project directory, run the command GitHub shows you, which will look like:
-
-   ```
-   git remote add origin https://github.com/<your-account>/skolkartan.git
-   ```
+**Repository:** https://github.com/samwelmunga/skolkartan (public, default branch `main`)
 
 ---
 
-## Step 2 — Confirm GitHub Actions is enabled
-
-New repositories normally have Actions on by default, but account-level and organisation-level
-policies can override that, so please confirm rather than assume.
+## Step 1 — Open branch protection
 
 1. Open the repository on github.com.
-2. Go to **Settings → Actions → General**.
-3. Under **Actions permissions**, make sure it is set to **Allow all actions and reusable
-   workflows**.
-4. Click **Save** if you changed anything.
-
-If you are in an organisation and the option is greyed out, the policy is set at the organisation
-level and an organisation owner has to change it. Tell the agent if you hit this — it changes how
-the rest of the story proceeds.
+2. **Settings → Branches**.
+3. Next to **Branch protection rules**, click **Add branch protection rule**. If a rule for `main`
+   already exists, click **Edit** instead.
 
 ---
 
-## Step 3 — Confirm the default branch is `main`
+## Step 2 — Configure the rule
 
-The workflow only triggers on `main`, and branch protection later in this story targets `main`.
+**Branch name pattern:** `main`
 
-In **Settings → General → Default branch**, confirm it reads `main`. If the repository was created
-from the local repo in Step 1 it will already be correct.
+### Required — the gate itself
+
+- **Require a pull request before merging**
+
+  This stops changes landing on `main` without a PR, which is where the check gets to block.
+  Underneath it you will see **Require approvals** — leave this **unticked**. You are the only
+  maintainer and GitHub will not let you approve your own pull request, so requiring an approval
+  would lock you out of your own repository.
+
+- **Require status checks to pass before merging**
+
+  In the search box that appears, type `checks` and select it. It must be the entry named exactly
+  **`checks`** — lower case, no prefix. If nothing appears, the workflow has not reported recently
+  enough; tell the agent rather than typing the name manually.
+
+- **Require branches to be up to date before merging**
+
+  Appears once you tick status checks. A PR must be current with `main` before merging, so the check
+  result reflects the code that will actually land rather than a stale snapshot.
+
+### Your decision — how strict to be with yourself
+
+- **Do not allow bypassing the above settings**
+
+  Ticking this applies the rules to administrators too, so **you** cannot push straight to `main` or
+  merge past a red check.
+
+  **Recommendation: tick it.** The point of this story is that an agreed rule cannot be bypassed by
+  forgetting. Leaving yourself an override makes the gate advisory. Keeping an escape hatch is a
+  legitimate choice — just say so, because it gets written down either way.
+
+### Leave unticked
+
+Signed commits, linear history, deployment environments, merge queue. None is needed here, and each
+adds a way for the pipeline to fail for reasons unrelated to the checks.
+
+---
+
+## Step 3 — Save
+
+Click **Create** (or **Save changes**).
+
+---
+
+## Alternative — command line
+
+```
+gh api -X PUT repos/samwelmunga/skolkartan/branches/main/protection \
+  --input - <<'JSON'
+{
+  "required_status_checks": { "strict": true, "contexts": ["checks"] },
+  "enforce_admins": true,
+  "required_pull_request_reviews": { "required_approving_review_count": 0 },
+  "restrictions": null
+}
+JSON
+```
+
+Set `"enforce_admins": false` instead if you want to keep an override for yourself.
 
 ---
 
 ## What happens next
 
-Once you have done the above, tell the agent you are done. It will verify by running:
+Tell the agent you are done. It will verify by reading the rule back:
 
 ```
-git remote -v
-gh repo view --json name,visibility,defaultBranchRef
-gh api repos/{owner}/{repo}/actions/permissions
+gh api repos/samwelmunga/skolkartan/branches/main/protection
 ```
 
-If any of those disagree with what you expect, the agent will come back to you rather than
-proceeding.
+**Then be aware:** from now on you cannot push directly to `main`. Every change goes via a pull
+request. That is the gate working as designed.
 
-**Not yet needed:** branch protection. That comes later in this story as a separate task
-(`E00_S04_T05`), with its own instructions file, because GitHub can only offer the `checks` job in
-the required-status-checks picker after that job has reported at least once. Setting it up now would
-mean typing the check name blind. Please do not configure it early.
+The next task deliberately breaks the build once on a throwaway branch to prove the gate blocks a
+merge. You will see one red pull request appear and then be cleaned up — that is expected.

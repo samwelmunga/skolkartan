@@ -1,11 +1,11 @@
 ---
 id: E00_S02
 title: Linting, formatting and the test runner
-status: Pending
+status: Passed
 epic_id: E00
 date_created: 2026-08-15
-date_started: null
-date_completed: null
+date_started: 2026-08-15
+date_completed: 2026-08-16
 tasks:
   - E00_S02_T01
   - E00_S02_T02

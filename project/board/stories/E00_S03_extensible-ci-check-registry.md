@@ -8,10 +8,6 @@ date_started: null
 date_completed: null
 tasks:
   - E00_S03_T01
-  - E00_S03_T02
-  - E00_S03_T03
-  - E00_S03_T04
-  - E00_S03_T05
 depends_on:
   - E00_S01
   - E00_S02
