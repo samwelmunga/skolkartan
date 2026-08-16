@@ -111,3 +111,19 @@ consequence is that `scripts/ci/*.ts` must stay within erasable TypeScript synta
 namespaces, no parameter properties — and relative imports carry their real `.ts` extension.
 `tsconfig.json` includes `scripts/**/*`, so `npm run typecheck` type-checks the registry and a
 malformed entry is a type error before it ever reaches the runner.
+
+## The pipeline
+
+`.github/workflows/ci.yml` contains one job, `checks`, and one execution step: `npm run ci`. The
+workflow triggers on `push` to `main` and on `pull_request` targeting `main`.
+
+Concurrency is grouped by ref with `cancel-in-progress: true` so that a superseding push cancels
+the run it made obsolete rather than letting stale results queue up.
+
+Node is set up from `.nvmrc` with the npm cache enabled. Dependencies are installed with `npm ci`
+— not `npm install`. Lockfile drift is a defect worth failing on.
+
+> **The workflow has no list of checks and must not be edited to add one.** Its single execution
+> step is `npm run ci`. When a new Epic registers a check, only `package.json` and
+> `scripts/ci/checks.ts` change; the workflow file stays as-is. That is the point of the
+> registry.

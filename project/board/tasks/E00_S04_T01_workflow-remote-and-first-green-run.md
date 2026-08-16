@@ -1,12 +1,12 @@
 ---
 id: E00_S04_T01
 title: CI workflow, remote, and the first green run on main
-status: Pending
+status: Passed
 story_id: E00_S04
 epic_id: E00
 date_created: 2026-08-16
-date_started: null
-date_completed: null
+date_started: 2026-08-17
+date_completed: 2026-08-17
 depends_on:
   - E00_S03_T01
 needs_docs: false
