@@ -18,7 +18,7 @@
     "node": ">=24.18.0"
   },
   "dependencies": {
-    "@jenga-ai/agent": "^1.0.1",
+    "@jenga-ai/agent": "^1.1.0",
     "next": "^16.3.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

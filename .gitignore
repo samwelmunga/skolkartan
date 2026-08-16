@@ -21,3 +21,6 @@ next-env.d.ts.timestamp
 
 # TypeScript incremental build info
 *.tsbuildinfo
+
+# Python bytecode from agent harness helper scripts
+__pycache__/
